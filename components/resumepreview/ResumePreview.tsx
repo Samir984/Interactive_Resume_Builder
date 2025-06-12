@@ -12,7 +12,7 @@ export default function ResumePreview() {
   const { resumeData } = useResumeBuilder();
   return (
     <div className="w-full">
-      <Card className="px-8 py-10 h-fit  bg-background border shadow-lg max-w-4xl ">
+      <Card className="px-8 py-10 h-fit  bg-background border shadow-lg  ">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-4">

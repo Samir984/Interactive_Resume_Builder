@@ -132,6 +132,7 @@ interface ResumeBuilderContext {
   currentStep: number;
   setResumeData: Dispatch<SetStateAction<ResumeData>>;
   handleFormNavigation: (action: "prev" | "next") => void;
+  clearResumeData: () => void;
 }
 
 const ResumeBuilderContext = createContext<ResumeBuilderContext | undefined>(
@@ -145,8 +146,7 @@ export default function ResumeBuilderProvider({
 }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [resumeData, setResumeData, clearResumeData] =
-    useState(initialResumeData);
-
+    useLocalStorage<ResumeData>("resumeData", initialResumeData);
   const stepTitles = [
     "Personal",
     "Experience",
@@ -170,6 +170,7 @@ export default function ResumeBuilderProvider({
         stepTitles,
         currentStep,
         handleFormNavigation,
+        clearResumeData,
       }}
     >
       {children}

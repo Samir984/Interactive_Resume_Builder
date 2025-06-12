@@ -12,7 +12,7 @@ import SummerForm from "./multi-step-form/SummerForm";
 import FormNavigation from "./FormNavigation";
 
 export default function ResumeBuilder() {
-  const { resumeData, currentStep } = useResumeBuilder();
+  const { currentStep, clearResumeData } = useResumeBuilder();
 
   return (
     <div className="space-y-6">
@@ -31,11 +31,7 @@ export default function ResumeBuilder() {
       </Card>
 
       <div className="text-center">
-        <Button
-          onClick={() => console.log("clear")}
-          variant="outline"
-          size="sm"
-        >
+        <Button onClick={() => clearResumeData()} variant="outline" size="sm">
           Clear All Data
         </Button>
       </div>

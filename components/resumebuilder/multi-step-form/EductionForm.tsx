@@ -137,9 +137,7 @@ export default function EductionForm() {
             </div>
 
             <div>
-              <Label htmlFor={`description-${education.id}`}>
-                Description (Optional)
-              </Label>
+              <Label htmlFor={`description-${education.id}`}>Description</Label>
               <Textarea
                 id={`description-${education.id}`}
                 value={education.description}

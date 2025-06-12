@@ -24,7 +24,7 @@ export default function FormNavigation() {
         disabled={currentStep >= stepTitles.length - 1}
         className="flex items-center gap-2"
       >
-        {currentStep === stepTitles.length - 1 ? "Complete" : "Next"}
+        Next
         <ArrowRight className="w-4 h-4" />
       </Button>
     </div>

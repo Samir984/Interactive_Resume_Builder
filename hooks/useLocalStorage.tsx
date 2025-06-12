@@ -16,7 +16,9 @@ export const useLocalStorage = <T,>(
   });
 
   const deleteLocalStorage = () => {
+    console.log("i am ccallled");
     localStorage.removeItem(key);
+    setValue(initialState);
   };
 
   useEffect(() => {
