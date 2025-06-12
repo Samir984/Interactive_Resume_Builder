@@ -11,7 +11,7 @@ import { Separator } from "../ui/separator";
 export default function ResumePreview() {
   const { resumeData } = useResumeBuilder();
   return (
-    <Card className="p-8 bg-background border shadow-lg max-w-4xl mx-auto">
+    <Card className="px-8 py-10 h-fit  bg-background border shadow-lg max-w-4xl">
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-foreground mb-4">
@@ -40,13 +40,25 @@ export default function ResumePreview() {
           {resumeData.personalInfo.linkedin && (
             <div className="flex items-center gap-1">
               <Linkedin className="w-4 h-4" />
-              <span>LinkedIn</span>
+              <a
+                href={resumeData.personalInfo.linkedin}
+                target="_blank"
+                className="text-blue-500 hover:underline"
+              >
+                LinkedIn
+              </a>
             </div>
           )}
           {resumeData.personalInfo.github && (
             <div className="flex items-center gap-1">
               <Github className="w-4 h-4" />
-              <span>GitHub</span>
+              <a
+                href={resumeData.personalInfo.github}
+                target="_blank"
+                className="text-blue-500 hover:underline"
+              >
+                GitHub
+              </a>
             </div>
           )}
         </div>
