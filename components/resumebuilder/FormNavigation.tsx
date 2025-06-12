@@ -4,13 +4,13 @@ import { useResumeBuilder } from "@/provider/ResumeBuilderProvider";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function FormNavigation() {
-  const { currentStep, stepTitles } = useResumeBuilder();
+  const { currentStep, stepTitles, handleFormNavigation } = useResumeBuilder();
   return (
     <div className="flex justify-between mt-8">
       <Button
         type="button"
         variant="outline"
-        // onClick={onPrevious}
+        onClick={() => handleFormNavigation("prev")}
         disabled={currentStep === 0}
         className="flex items-center gap-2"
       >
@@ -20,8 +20,8 @@ export default function FormNavigation() {
 
       <Button
         type="button"
-        // onClick={onNext}
-        // disabled={isNextDisabled}
+        onClick={() => handleFormNavigation("next")}
+        disabled={currentStep >= stepTitles.length - 1}
         className="flex items-center gap-2"
       >
         {currentStep === stepTitles.length - 1 ? "Complete" : "Next"}

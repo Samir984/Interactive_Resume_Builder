@@ -4,11 +4,11 @@ import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import Stepper from "./Steeper";
 import { useResumeBuilder } from "@/provider/ResumeBuilderProvider";
-import PersonalnfoForm from "./multi-stepform/PersonalnfoForm";
-import WorkExperienceForm from "./multi-stepform/WorkExperienceForm";
-import EductionForm from "./multi-stepform/EductionForm";
-import SkillForm from "./multi-stepform/SkillForm";
-import SummerForm from "./multi-stepform/SummerForm";
+import PersonalnfoForm from "./multi-step-form/PersonalnfoForm";
+import WorkExperienceForm from "./multi-step-form/WorkExperienceForm";
+import EductionForm from "./multi-step-form/EductionForm";
+import SkillForm from "./multi-step-form/SkillForm";
+import SummerForm from "./multi-step-form/SummerForm";
 import FormNavigation from "./FormNavigation";
 
 export default function ResumeBuilder() {

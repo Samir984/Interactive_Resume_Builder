@@ -1,9 +1,16 @@
 "use client";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { ReactNode, useContext, useState, createContext } from "react";
+import {
+  ReactNode,
+  useContext,
+  useState,
+  createContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 export interface PersonalInfo {
-  name: string;
+  firstName: string;
   email: string;
   phone: string;
   location: string;
@@ -40,7 +47,7 @@ export interface ResumeData {
 
 // export const initialResumeData: ResumeData = {
 //   personalInfo: {
-//     name: "John Doe",
+//     firstName: "John Doe",
 //     email: "john.doe@example.com",
 //     phone: "9745316522",
 //     location: "San Francisco, CA, USA",
@@ -106,7 +113,7 @@ export interface ResumeData {
 
 export const initialResumeData: ResumeData = {
   personalInfo: {
-    name: "",
+    firstName: "",
     email: "",
     phone: "",
     location: "",
@@ -123,6 +130,8 @@ interface ResumeBuilderContext {
   resumeData: ResumeData;
   stepTitles: string[];
   currentStep: number;
+  setResumeData: Dispatch<SetStateAction<ResumeData>>;
+  handleFormNavigation: (action: "prev" | "next") => void;
 }
 
 const ResumeBuilderContext = createContext<ResumeBuilderContext | undefined>(
@@ -138,7 +147,6 @@ export default function ResumeBuilderProvider({
   const [resumeData, setResumeData, clearResumeData] =
     useState(initialResumeData);
 
-  console.log(resumeData);
   const stepTitles = [
     "Personal",
     "Experience",
@@ -147,14 +155,21 @@ export default function ResumeBuilderProvider({
     "Summary",
   ];
 
-  
-
+  const handleFormNavigation = function (action: "prev" | "next") {
+    if (action === "prev") {
+      setCurrentStep((prev) => prev - 1);
+    } else {
+      setCurrentStep((prev) => prev + 1);
+    }
+  };
   return (
     <ResumeBuilderContext.Provider
       value={{
         resumeData,
+        setResumeData,
         stepTitles,
         currentStep,
+        handleFormNavigation,
       }}
     >
       {children}

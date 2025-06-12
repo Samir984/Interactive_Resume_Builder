@@ -123,6 +123,6 @@
 
 @layer components {
   .container-center {
-    @apply max-w-[1380px] mx-auto;
+    @apply max-w-[1480px] mx-auto;
   }
 }
