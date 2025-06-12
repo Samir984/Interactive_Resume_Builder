@@ -1,8 +1,10 @@
+import ResumePreview from "@/components/resumepreview/ResumePreview";
+
 export default function Home() {
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col gap-4 md:flex-row">
       <div className="">Resume Builder</div>
-      <div className="">Resume preview</div>
+      <ResumePreview />
     </div>
   );
 }

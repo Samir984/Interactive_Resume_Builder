@@ -40,17 +40,68 @@ export interface ResumeData {
 
 export const initialResumeData: ResumeData = {
   personalInfo: {
-    name: "",
-    email: "",
-    phone: "",
-    location: "",
-    linkedin: "",
-    github: "",
+    name: "John Doe",
+    email: "john.doe@example.com",
+    phone: "+1 (555) 123-4567",
+    location: "San Francisco, CA, USA",
+    linkedin: "https://www.linkedin.com/in/johndoe",
+    github: "https://github.com/johndoe",
   },
-  workExperience: [],
-  education: [],
-  skills: [],
-  summary: "",
+  workExperience: [
+    {
+      id: "1",
+      company: "Tech Innovations Inc.",
+      jobTitle: "Senior Software Engineer",
+      startDate: "2022-01",
+      endDate: "Present",
+      current: true,
+      description:
+        "Led development of scalable web applications using React and Node.js. Implemented CI/CD pipelines and mentored junior developers.",
+    },
+    {
+      id: "2",
+      company: "Web Solutions Co.",
+      jobTitle: "Software Developer",
+      startDate: "2019-06",
+      endDate: "2021-12",
+      current: false,
+      description:
+        "Developed and maintained front-end components with Angular. Collaborated with UX/UI designers to improve user experience.",
+    },
+  ],
+  education: [
+    {
+      id: "1",
+      institution: "University of California, Berkeley",
+      degree: "Master of Science in Computer Science",
+      startYear: "2018",
+      endYear: "2019",
+      description:
+        "Specialized in Artificial Intelligence and Machine Learning.",
+    },
+    {
+      id: "2",
+      institution: "Stanford University",
+      degree: "Bachelor of Science in Software Engineering",
+      startYear: "2014",
+      endYear: "2018",
+      description: "Graduated with honors. Dean's List every semester.",
+    },
+  ],
+  skills: [
+    "JavaScript",
+    "React.js",
+    "Node.js",
+    "Python",
+    "TypeScript",
+    "Tailwind CSS",
+    "Git",
+    "AWS",
+    "RESTful APIs",
+    "Database Management (SQL, NoSQL)",
+  ],
+  summary:
+    "Highly motivated and results-oriented Senior Software Engineer with 5+ years of experience in developing and deploying full-stack web applications. Proven ability to lead projects, mentor teams, and deliver robust, scalable software solutions. Passionate about clean code, continuous learning, and innovative problem-solving.",
 };
 
 interface ResumeBuilderContext {
@@ -69,8 +120,9 @@ export default function ResumeBuilderProvider({
 }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [resumeData, setResumeData, clearResumeData] =
-    useLocalStorage<ResumeData>("resumeData", initialResumeData);
+    useState(initialResumeData);
 
+  console.log(resumeData);
   const stepTitles = [
     "Personal",
     "Experience",
@@ -91,7 +143,7 @@ export default function ResumeBuilderProvider({
   );
 }
 
-export const useResumeBuilderContext = () => {
+export const useResumeBuilder = () => {
   const context = useContext(ResumeBuilderContext);
   if (context === undefined) {
     throw new Error(
