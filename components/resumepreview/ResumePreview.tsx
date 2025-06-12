@@ -16,7 +16,7 @@ export default function ResumePreview() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-4">
-            {resumeData.personalInfo.name || "Your Name"}
+            {resumeData.personalInfo.firstName || "Your Name"}
           </h1>
 
           <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
