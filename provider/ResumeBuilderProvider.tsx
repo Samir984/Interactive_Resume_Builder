@@ -7,10 +7,11 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
 
 export interface PersonalInfo {
-  firstName: string;
+  fullName: string;
   email: string;
   phone: string;
   location: string;
@@ -19,7 +20,7 @@ export interface PersonalInfo {
 }
 
 export interface WorkExperience {
-  id: string;
+  id: number;
   company: string;
   jobTitle: string;
   startDate: string;
@@ -29,7 +30,7 @@ export interface WorkExperience {
 }
 
 export interface Education {
-  id: string;
+  id: number;
   institution: string;
   degree: string;
   startYear: string;
@@ -45,9 +46,10 @@ export interface ResumeData {
   summary: string;
 }
 
+// Dummy data
 // export const initialResumeData: ResumeData = {
 //   personalInfo: {
-//     firstName: "John Doe",
+//     fullName: "John Doe",
 //     email: "john.doe@example.com",
 //     phone: "9745316522",
 //     location: "San Francisco, CA, USA",
@@ -59,7 +61,7 @@ export interface ResumeData {
 //       id: "1",
 //       company: "Tech Innovations Inc.",
 //       jobTitle: "Senior Software Engineer",
-//       startDate: "2022-01",
+//       startDate: "2022-01-18",
 //       endDate: "Present",
 //       current: true,
 //       description:
@@ -69,8 +71,8 @@ export interface ResumeData {
 //       id: "2",
 //       company: "Web Solutions Co.",
 //       jobTitle: "Software Developer",
-//       startDate: "2019-06",
-//       endDate: "2021-12",
+//       startDate: "2019-06-11",
+//       endDate: "2021-12-10",
 //       current: false,
 //       description:
 //         "Developed and maintained front-end components with Angular. Collaborated with UX/UI designers to improve user experience.",
@@ -113,7 +115,7 @@ export interface ResumeData {
 
 export const initialResumeData: ResumeData = {
   personalInfo: {
-    firstName: "",
+    fullName: "",
     email: "",
     phone: "",
     location: "",
@@ -144,9 +146,16 @@ export default function ResumeBuilderProvider({
 }: {
   children: ReactNode;
 }) {
-  const [currentStep, setCurrentStep] = useState(0);
   const [resumeData, setResumeData, clearResumeData] =
     useLocalStorage<ResumeData>("resumeData", initialResumeData);
+
+  const [storedStep, setStoredStep] = useLocalStorage<number>("currentStep", 0);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  useEffect(() => {
+    setCurrentStep(storedStep);
+  }, [storedStep]);
+
   const stepTitles = [
     "Personal",
     "Experience",
@@ -156,12 +165,18 @@ export default function ResumeBuilderProvider({
   ];
 
   const handleFormNavigation = function (action: "prev" | "next") {
-    if (action === "prev") {
-      setCurrentStep((prev) => prev - 1);
-    } else {
-      setCurrentStep((prev) => prev + 1);
-    }
+    setCurrentStep((prev) => {
+      let newStep = prev;
+      if (action === "prev") {
+        newStep = Math.max(0, prev - 1);
+      } else {
+        newStep = Math.min(stepTitles.length - 1, prev + 1);
+      }
+      setStoredStep(newStep);
+      return newStep;
+    });
   };
+
   return (
     <ResumeBuilderContext.Provider
       value={{

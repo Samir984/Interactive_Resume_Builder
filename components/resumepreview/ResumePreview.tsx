@@ -7,16 +7,37 @@ import { formatDate } from "@/lib/utils";
 
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
+import React, { useState, useEffect } from "react"; // Import useState and useEffect
 
 export default function ResumePreview() {
   const { resumeData } = useResumeBuilder();
+  const [hasMounted, setHasMounted] = useState(false); // State to track if component has mounted
+
+  useEffect(() => {
+    // This effect runs only on the client after the component has mounted
+    setHasMounted(true);
+  }, []);
+
+  // If the component hasn't mounted yet, return null or a simple loading skeleton
+  // This prevents the server from rendering potentially different content than the client
+  if (!hasMounted) {
+    return (
+      <div className="w-full">
+        <Card className="px-8 py-10 h-fit bg-background border shadow-lg min-h-[640] flex items-center justify-center">
+          <p className="text-muted-foreground">Syncing preview...</p>
+        </Card>
+      </div>
+    );
+  }
+
+  // Once mounted, render the actual content
   return (
     <div className="w-full">
-      <Card className="px-8 py-10 h-fit  bg-background border shadow-lg  ">
+      <Card className="px-8 py-10 h-fit  bg-background border shadow-lg min-h-[640] ">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-4">
-            {resumeData.personalInfo.firstName || "Your Name"}
+            {resumeData.personalInfo.fullName || "Your Name"}
           </h1>
 
           <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
@@ -44,6 +65,7 @@ export default function ResumePreview() {
                 <a
                   href={resumeData.personalInfo.linkedin}
                   target="_blank"
+                  rel="noopener noreferrer" // Added for security best practice
                   className="text-blue-500 hover:underline"
                 >
                   LinkedIn
@@ -56,6 +78,7 @@ export default function ResumePreview() {
                 <a
                   href={resumeData.personalInfo.github}
                   target="_blank"
+                  rel="noopener noreferrer" // Added for security best practice
                   className="text-blue-500 hover:underline"
                 >
                   GitHub

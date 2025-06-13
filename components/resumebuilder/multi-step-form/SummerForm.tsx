@@ -1,3 +1,5 @@
+"use client"
+
 import { Textarea } from "@/components/ui/textarea";
 import { useResumeBuilder } from "@/provider/ResumeBuilderProvider";
 import { Label } from "@radix-ui/react-label";

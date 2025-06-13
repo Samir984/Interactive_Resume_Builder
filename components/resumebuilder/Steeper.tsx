@@ -1,3 +1,5 @@
+"use client";
+
 import { useResumeBuilder } from "@/provider/ResumeBuilderProvider";
 import React from "react";
 
