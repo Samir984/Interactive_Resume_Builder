@@ -1,6 +1,6 @@
 # Interactive Resume Builder
 
-**A web platform that help in building Resume.**
+**A web platform that help in building Resume(prototype).**
 
 # Set Up
 
